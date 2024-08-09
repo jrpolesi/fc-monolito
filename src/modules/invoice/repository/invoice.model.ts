@@ -17,26 +17,26 @@ import { InvoiceItemModel } from "./invoice-item.model";
 export class InvoiceModel extends Model {
   @PrimaryKey
   @Column
-  id: string;
+  declare id: string;
 
   @Column({ allowNull: false })
-  name: string;
+  declare name: string;
 
   @Column({ allowNull: false })
-  document: string;
+  declare document: string;
 
   @ForeignKey(() => AddressModel)
-  address_id: number;
+  declare address_id: number;
 
   @BelongsTo(() => AddressModel)
-  address: AddressModel;
+  declare address: AddressModel;
 
   @HasMany(() => InvoiceItemModel)
-  items: InvoiceItemModel[];
+  declare items: InvoiceItemModel[];
 
   @Column({ allowNull: false, field: "created_at" })
-  createdAt: Date;
+  declare createdAt: Date;
 
   @Column({ allowNull: false, field: "updated_at" })
-  updatedAt: Date;
+  declare updatedAt: Date;
 }

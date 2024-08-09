@@ -15,23 +15,23 @@ import { InvoiceModel } from "./invoice.model";
 export class InvoiceItemModel extends Model {
   @PrimaryKey
   @Column
-  id: string;
+  declare id: string;
 
   @Column({ allowNull: false })
-  name: string;
+  declare name: string;
 
   @Column({ allowNull: false })
-  price: number;
+  declare price: number;
 
   @ForeignKey(() => InvoiceModel)
-  invoice_id: string;
+  declare invoice_id: string;
 
   @BelongsTo(() => InvoiceModel)
-  invoice: InvoiceModel;
+  declare invoice: InvoiceModel;
 
   @Column({ allowNull: false, field: "created_at" })
-  createdAt: Date;
+  declare createdAt: Date;
 
   @Column({ allowNull: false, field: "updated_at" })
-  updatedAt: Date;
+  declare updatedAt: Date;
 }

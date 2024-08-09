@@ -10,31 +10,35 @@ import { InvoiceModel } from "./invoice.model";
 
 export default class InvoiceRepository implements InvoiceGateway {
   async save(invoice: Invoice): Promise<void> {
-    await InvoiceModel.create(
-      {
-        id: invoice.id.id,
-        name: invoice.name,
-        document: invoice.document,
-        address: {
-          street: invoice.address.street,
-          number: invoice.address.number,
-          complement: invoice.address.complement,
-          city: invoice.address.city,
-          state: invoice.address.state,
-          zipCode: invoice.address.zipCode,
+    try {
+      await InvoiceModel.create(
+        {
+          id: invoice.id.id,
+          name: invoice.name,
+          document: invoice.document,
+          address: {
+            street: invoice.address.street,
+            number: invoice.address.number,
+            complement: invoice.address.complement,
+            city: invoice.address.city,
+            state: invoice.address.state,
+            zipCode: invoice.address.zipCode,
+          },
+          items: invoice.items.map((item) => ({
+            id: item.id.id,
+            name: item.name,
+            price: item.price,
+            createdAt: item.createdAt,
+            updatedAt: item.updatedAt,
+          })),
+          createdAt: invoice.createdAt,
+          updatedAt: invoice.updatedAt,
         },
-        items: invoice.items.map((item) => ({
-          id: item.id.id,
-          name: item.name,
-          price: item.price,
-          createdAt: item.createdAt,
-          updatedAt: item.updatedAt,
-        })),
-        createdAt: invoice.createdAt,
-        updatedAt: invoice.updatedAt,
-      },
-      { include: [{ model: InvoiceItemModel }, { model: AddressModel }] }
-    );
+        { include: [{ model: InvoiceItemModel }, { model: AddressModel }] }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
   async find(id: string): Promise<Invoice> {
     const invoiceDb = await InvoiceModel.findOne({

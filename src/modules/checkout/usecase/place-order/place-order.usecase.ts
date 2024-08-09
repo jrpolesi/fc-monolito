@@ -42,7 +42,6 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
     }
 
     await this.validateProducts(input);
-
     const products = await Promise.all(
       input.products.map((p) => {
         return this.getProduct(p.productId);
@@ -53,6 +52,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
       id: new Id(client.id),
       name: client.name,
       email: client.email,
+      document: client.document,
       address: client.address,
     });
 
@@ -89,8 +89,8 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
 
     payment.status === "approved" && order.approve();
 
-    this._repository.addOrder(order);
-
+    await this._repository.addOrder(order);
+    
     return {
       id: order.id.id,
       invoiceId: payment.status === "approved" ? invoice.id : null,

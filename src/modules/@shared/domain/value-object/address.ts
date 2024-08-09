@@ -15,7 +15,6 @@ export default class Address implements ValueObject {
     this._city = city
     this._state = state
     this._zipCode = zipCode
-
   }
 
   get street(): string {

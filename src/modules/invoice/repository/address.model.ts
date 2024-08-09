@@ -7,23 +7,23 @@ import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
 export class AddressModel extends Model {
   @PrimaryKey
   @Column({ autoIncrement: true })
-  id: number;
+  declare id: number;
 
   @Column({ allowNull: false })
-  street: string;
+  declare street: string;
 
   @Column({ allowNull: false })
-  number: string;
+  declare number: string;
 
   @Column({ allowNull: true })
-  complement: string;
+  declare complement: string;
 
   @Column({ allowNull: false })
-  city: string;
+  declare city: string;
 
   @Column({ allowNull: false })
-  state: string;
+  declare state: string;
 
   @Column({ allowNull: false })
-  zipCode: string;
+  declare zipCode: string;
 }
